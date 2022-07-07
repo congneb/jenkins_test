@@ -1,0 +1,27 @@
+
+1. Jenkins setup Github plugin
+- You have to install git on your PC
+	+ Config git
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+ 	
+
+- On Jenkins Manage Plugin:
+	Type: Gihub and install it.
+
+After install Github plugin:
+You must update: 
+Go to: Manage Jenkins => Global Tool Configuration => Update git.exe path to: C:\Program Files\Git\bin\git.exe
+
+2. Jenkins auto clone lastest code.
+- Create a new job
+
+- At SCM select Git
+	Paste Repo URL like: https://github.com/congneb/jenkins
+
+	+ Change Poll SCM to request auto check new Github after Cron time
+
+Ok, commit something and Jenkins wil auto: pull new code to local PC at path:
+C:\ProgramData\Jenkins\.jenkins\workspace\Demo
+Demo: Name of my Jenkins Job
+
