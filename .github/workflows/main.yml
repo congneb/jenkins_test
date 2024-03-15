@@ -11,6 +11,4 @@ jobs:
         uses: actions/checkout@v4
       - name: Hello world action step
         uses: ./ # Uses an action in the root directory
-        id: codo
-        with:
-          who-to-greet: 'CoDo to test'
+        id: hello
