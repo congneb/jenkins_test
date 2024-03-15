@@ -1,14 +1,19 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
+
 jobs:
-  check-bats-version:
+  hello_world_job:
     runs-on: ubuntu-latest
+    name: A job to say hello
     steps:
-      - uses: actions/checkout@v3.6.0
-      - uses: actions/setup-node@v4
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Hello world action step
+        uses: ./ # Uses an action in the root directory
+        id: hello
         with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: ls
-      - run: pwd
+          who-to-greet: 'CoDo to test'
+      # Use the output from the `hello` step
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
