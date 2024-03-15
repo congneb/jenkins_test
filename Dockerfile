@@ -2,8 +2,8 @@
 # Container image that runs your code
 FROM ubuntu:22.04
 
-RUN apt-get update -y && apt-get install curl && \
-	apt-get install zip
+RUN apt-get update -y && apt-get install curl -y && \
+	apt-get install zip -y
 
 RUN pwd
 RUN mkdir -p tools && ls .
