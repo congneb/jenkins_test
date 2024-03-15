@@ -11,5 +11,7 @@ RUN mkdir -p tools && ls .
 # Install arduino cli
 RUN curl -L -o arduino_cli.tgz https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz
 RUN tar -xvf arduino_cli.tgz -C tools > /dev/null
+RUN ls ./ && ls ./tools
+
 RUN ./tools/arduino_cli core list
 RUN ./tools/arduino_cli config dump
