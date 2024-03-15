@@ -10,8 +10,9 @@ It will use tool in this repo: https://github.com/actions/checkout
 Hoặc nếu muốn sử dụng version cũ hơn thì dùng: @v3.6.0
 
 ==============================================
+Cách xuống dòng nhiều commands trong lệnh "run"
 
-run : |
-   echo "line 1"
+run : |<br>
+   echo "line 1"<br>
    echo "line 2"
 
