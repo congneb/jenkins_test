@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: actions/hello-world-docker-action@v2
+        uses: actions/jenkins_test@v2
         with:
           who-to-greet: 'Cong in main.yml'
       # Use the output from the `hello` step
