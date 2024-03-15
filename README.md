@@ -1,4 +1,4 @@
-Github action here:
+- Github action here:
 https://github.com/actions
 
 Eg: you want to checkout your repo then use command
@@ -10,7 +10,7 @@ It will use tool in this repo: https://github.com/actions/checkout
 Hoặc nếu muốn sử dụng version cũ hơn thì dùng: @v3.6.0
 
 ==============================================
-Cách xuống dòng nhiều commands trong lệnh "run"
+- Cách xuống dòng nhiều commands trong lệnh "run"
 
 run : |<br>
    echo "line 1"<br>
