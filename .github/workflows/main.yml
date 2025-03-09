@@ -1,11 +1,21 @@
+name: Renode ESP32
+
 on: [push]
 
 jobs:
-  hello_world_job:
+  build-and-run:
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
-      - name: Haha
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Renode
         run: |
-          echo $GITHUB_RUN_ID
-          echo ${{ github.job }}
+          wget https://github.com/renode/renode/releases/download/v1.11/renode-v1.11-linux-x86_64.tar.gz
+          tar -xvf renode-v1.11-linux-x86_64.tar.gz
+          export PATH=$PATH:$PWD/renode-v1.11-linux-x86_64/bin
+
+      - name: Build and run Renode
+        run: |
+          renode --verbose esp32.resc
+          renode --verbose esp32.resc --run-script=script.resc
