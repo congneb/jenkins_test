@@ -13,8 +13,8 @@ jobs:
       run: |
         wget https://github.com/renode/renode/releases/download/v1.12.0/renode-1.12.0.linux-portable.tar.gz
         tar -xzf renode-1.12.0.linux-portable.tar.gz
-        ls .
-        sudo mv renode-1.12.0 /opt/renode
+        ls ./renode_1.12.0_portable
+        sudo mv renode_1.12.0_portable /opt/renode
         echo 'export PATH=$PATH:/opt/renode' >> $GITHUB_ENV
 
     - name: Run Renode script
