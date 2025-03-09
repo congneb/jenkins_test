@@ -1,0 +1,11 @@
+machine: esp32
+
+memory:
+  - size: 0x200000
+    address: 0x3f800000
+
+peripherals:
+  - uart0
+  - uart1
+  - spi
+  - i2c
