@@ -11,8 +11,9 @@ jobs:
 
       - name: Install Renode
         run: |
-          wget https://github.com/renode/renode/releases/download/v1.11/renode-v1.11-linux-x86_64.tar.gz
-          tar -xvf renode-v1.11-linux-x86_64.tar.gz
+          wget https://github.com/renode/renode/archive/refs/tags/v1.15.3.tar.gz
+          tar -xvf v1.15.3.tar.gz
+          ls .
           export PATH=$PATH:$PWD/renode-v1.11-linux-x86_64/bin
 
       - name: Build and run Renode
