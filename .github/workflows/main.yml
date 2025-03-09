@@ -14,7 +14,7 @@ jobs:
           wget https://github.com/renode/renode/archive/refs/tags/v1.15.3.tar.gz
           tar -xvf v1.15.3.tar.gz
           ls .
-          export PATH=$PATH:$PWD/renode-v1.11-linux-x86_64/bin
+          export PATH=$PATH:$PWD/renode-1.15.3
 
       - name: Build and run Renode
         run: |
