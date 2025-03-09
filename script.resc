@@ -1,0 +1,3 @@
+run:
+  - uart0: print "Hello, World!"
+  - uart1: print "Renode is awesome!"
