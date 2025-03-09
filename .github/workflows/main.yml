@@ -1,22 +1,20 @@
 name: Renode ESP32
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  build-and-run:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v2
 
-      - name: Install Renode
-        run: |
-          wget https://github.com/renode/renode/archive/refs/tags/v1.15.3.tar.gz
-          tar -xvf v1.15.3.tar.gz
-          ls .
-          export PATH=$PATH:$PWD/renode-1.15.3
+    - name: Set up Renode
+      run: |
+        wget https://github.com/renode/renode/releases/download/v1.12.0/renode-1.12.0.linux-portable.tar.gz
+        tar -xzf renode-1.12.0.linux-portable.tar.gz
+        sudo mv renode-1.12.0 /opt/renode
+        echo 'export PATH=$PATH:/opt/renode' >> $GITHUB_ENV
 
-      - name: Build and run Renode
-        run: |
-          renode --verbose esp32.resc
-          renode --verbose esp32.resc --run-script=script.resc
+    - name: Run Renode script
+      run: renode --verbose esp32.resc --run-script=script.resc
