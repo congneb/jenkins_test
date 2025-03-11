@@ -1,0 +1,17 @@
+name: Dependent Workflow
+
+on:
+  workflow_run:
+    workflows: ["Renode ESP32"]
+    types:
+      - completed
+
+jobs:
+  dependent-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Perform dependent task
+        run: echo "This workflow runs after the previous one has completed successfully."
