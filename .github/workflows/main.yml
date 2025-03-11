@@ -15,9 +15,9 @@ jobs:
         tar -xzf v1.15.3.tar.gz
         
         echo =========================
-        ls .
+        ls ./renode-1.15.3
         export PATH=$PATH:$PWD/renode_1.12.0_portable
-        renode_1.12.0_portable/renode --verbose esp32.resc --run-script=script.resc
+        renode-1.15.3/renode --verbose esp32.resc --run-script=script.resc
 
     - name: Run Renode script
       run: renode --verbose esp32.resc --run-script=script.resc
