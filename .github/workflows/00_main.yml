@@ -1,0 +1,32 @@
+name: Renode ESP32
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'
+
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release
+
+    - name: Ensure Renode.exe exists
+      run: |
+        if [ ! -f "/home/runner/work/jenkins_test/jenkins_test/renode-1.15.3/output/bin/Release/Renode.exe" ]; then
+          echo "Renode.exe not found!"
+          exit 1
+        fi
+
+    - name: Run Renode script
+      run: mono /home/runner/work/jenkins_test/jenkins_test/renode-1.15.3/output/bin/Release/Renode.exe script.resc
