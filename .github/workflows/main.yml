@@ -11,15 +11,12 @@ jobs:
 
     - name: Set up Renode
       run: |
-        wget https://github.com/renode/renode/releases/download/v1.12.0/renode-1.12.0.linux-portable.tar.gz
-        tar -xzf renode-1.12.0.linux-portable.tar.gz
+        wget https://github.com/renode/renode/archive/refs/tags/v1.15.3.tar.gz
+        tar -xzf v1.15.3.tar.gz
         
         echo =========================
-        ls ./renode_1.12.0_portable
+        ls .
         export PATH=$PATH:$PWD/renode_1.12.0_portable
-        # sudo mv renode_1.12.0_portable /opt/renode
-        # echo 'export PATH=$PATH:/opt/renode' >> $GITHUB_ENV
-
         renode_1.12.0_portable/renode --verbose esp32.resc --run-script=script.resc
 
     - name: Run Renode script
