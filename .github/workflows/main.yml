@@ -7,10 +7,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Set up Renode
       run: |
+        sudo apt install -y mono-devel
+        
         wget https://github.com/renode/renode/archive/refs/tags/v1.15.3.tar.gz
         tar -xzf v1.15.3.tar.gz
         
