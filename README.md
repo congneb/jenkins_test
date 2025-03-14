@@ -1,4 +1,4 @@
-- Github action here:
+- Github action here: .
 https://github.com/actions
 
 Eg: you want to checkout your repo then use command
