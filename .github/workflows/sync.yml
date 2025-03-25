@@ -1,0 +1,19 @@
+name: Sync repo
+on:
+  workflow_dispatch:
+  
+
+jobs:
+  sync_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          repository: congneb/test_template
+          
+      - name: Do sync
+        run: |
+          git remote add upstream https://github.com/congneb/esp32.git
+          git fetch upstream
+          git push origin master
