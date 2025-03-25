@@ -24,5 +24,8 @@ jobs:
           # merge current repo in to upstream repo, branch: master
           git merge upstream/master --allow-unrelated-histories
           
-          # Push to downstream repo congneb/test_template       
+          # Push to downstream repo congneb/test_template 
+          git add .
+          git commit -m "Merge updates from template repository"
+          
           git push origin master
