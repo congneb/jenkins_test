@@ -11,6 +11,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: congneb/test_template
+          token: ${{ secrets.CONG_TOKEN }}
           
       - name: Do sync
         run: |
