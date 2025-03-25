@@ -17,9 +17,10 @@ jobs:
           
       - name: Do sync
         run: |
-          git remote add target-repo https://github.com/congneb/test_template.git
-          git pull
-          git push target-repo master
+          git remote add public-repo https://github.com/congneb/test_template.git
+
+          git commit -m "Auto sync"
+          git push public-repo master
 
         # run: |
         #   git config --global user.name "github-actions[bot]"
