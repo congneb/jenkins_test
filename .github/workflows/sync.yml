@@ -1,9 +1,7 @@
 name: Sync repo
 on:
-  workflow_dispatch:
-  
-  push:
-  
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   sync_job:
     runs-on: ubuntu-latest
@@ -11,19 +9,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          repository: congneb/esp32
+          repository: congneb/example_staging
           token: ${{ secrets.CONG_TOKEN }}
           fetch-depth: 0
           
-      - name: Do sync
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"   
+      # - name: Do sync
+      #   run: |
+      #     git config --global user.name "github-actions[bot]"
+      #     git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"   
         
-          git remote add public-repo https://github.com/congneb/test_template.git
+      #     git remote add public-repo https://github.com/congneb/test_template.git
 
-          git commit -m "Auto sync"
-          git push public-repo master
+      #     git commit -m "Auto sync"
+      #     git push public-repo master
 
         # run: |
         #   git config --global user.name "github-actions[bot]"
