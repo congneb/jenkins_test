@@ -18,6 +18,7 @@ jobs:
       - name: Do sync
         run: |
           git remote add target-repo https://github.com/congneb/test_template.git
+          git pull
           git push target-repo master
 
         # run: |
