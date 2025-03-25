@@ -19,4 +19,6 @@ jobs:
           git remote add upstream https://github.com/congneb/esp32.git
           git fetch upstream
           git merge upstream/master
-          git push origin master
+          
+          # Push to downstream repo
+          git push origin main
