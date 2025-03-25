@@ -16,12 +16,13 @@ jobs:
           
       - name: Do sync
         run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"   
+          
           git remote add upstream https://github.com/congneb/esp32.git
           git fetch upstream
           # merge current repo in to upstream repo, branch: master
           git merge upstream/master --allow-unrelated-histories
           
-          # Push to downstream repo congneb/test_template
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"          
+          # Push to downstream repo congneb/test_template       
           git push origin master
