@@ -13,6 +13,7 @@ jobs:
         with:
           repository: congneb/test_template
           token: ${{ secrets.CONG_TOKEN }}
+          fetch-depth: 0
           
       - name: Do sync
         run: |
@@ -22,7 +23,7 @@ jobs:
           git remote add upstream https://github.com/congneb/esp32.git
           git fetch upstream
           # merge current repo in to upstream repo, branch: master
-          git merge upstream/master --allow-unrelated-histories
+          git merge upstream/master
           
           # Push to downstream repo congneb/test_template 
           git add .
