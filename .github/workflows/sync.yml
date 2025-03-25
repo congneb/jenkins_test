@@ -18,7 +18,8 @@ jobs:
         run: |
           git remote add upstream https://github.com/congneb/esp32.git
           git fetch upstream
-          git merge upstream/master
+          # merge current repo in to upstream repo, branch: master
+          git merge upstream/master --allow-unrelated-histories
           
           # Push to downstream repo
           git push origin main
