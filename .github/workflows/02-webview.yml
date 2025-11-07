@@ -18,7 +18,7 @@ jobs:
           node -e "
           const puppeteer = require('puppeteer');
           (async () => {
-            const browser = await puppeteer.launch({ headless: true });
+            const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
             const page = await browser.newPage();
             await page.goto('https://youtube.com/shorts/RuNOAAgJV8g?si=v3ZL2ddAbfSSgYwK');
             await new Promise(res => setTimeout(res, 10000)); // 10 seconds
