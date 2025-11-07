@@ -1,39 +1,68 @@
-name: Sync repo
+name: Build Yocto Raspberry Pi Image
+
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+
 jobs:
-  sync_job:
+  build-yocto:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout source
         uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            gawk wget git-core diffstat unzip texinfo gcc-multilib \
+            build-essential chrpath socat cpio python3 python3-pip python3-pexpect \
+            xz-utils debianutils iputils-ping python3-git python3-jinja2 \
+            libegl1-mesa libsdl1.2-dev pylint xterm python3-subunit \
+            mesa-common-dev zstd liblz4-tool
+
+      - name: Setup sstate cache
+        uses: actions/cache@v4
         with:
-          repository: congneb/example_staging
-          token: ${{ secrets.CONG_TOKEN }}
-          fetch-depth: 0
-          
-      # - name: Do sync
-      #   run: |
-      #     git config --global user.name "github-actions[bot]"
-      #     git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"   
-        
-      #     git remote add public-repo https://github.com/congneb/test_template.git
+          path: |
+            build/sstate-cache
+          key: yocto-sstate-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            yocto-sstate-${{ runner.os }}
 
-      #     git commit -m "Auto sync"
-      #     git push public-repo master
+      - name: Initialize Yocto build environment
+        run: |
+          if [ ! -d poky ]; then
+            git clone --branch kirkstone git://git.yoctoproject.org/poky.git poky
+          fi  
+          # Optionally add Raspberry Pi layer and meta-openembedded
+          if [ ! -d meta-raspberrypi ]; then
+            git clone --branch kirkstone git://git.yoctoproject.org/meta-raspberrypi
+          fi
+          if [ ! -d meta-openembedded ]; then
+            git clone --branch kirkstone git://git.openembedded.org/meta-openembedded
+          fi
 
-        # run: |
-        #   git config --global user.name "github-actions[bot]"
-        #   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"   
-          
-        #   git remote add upstream https://github.com/congneb/esp32.git
-        #   git fetch origin upstream
-        #   # merge current repo in to upstream repo, branch: master
-        #   git merge upstream/master
-          
-        #   # Push to downstream repo congneb/test_template 
-        #   git add .
-        #   git commit -m "Merge updates from template repository"
-          
-        #   git push origin master
+      - name: Configure Yocto for Raspberry Pi
+        run: |
+          source poky/oe-init-build-env
+          cp ../poky/meta-poky/conf/local.conf.sample conf/local.conf
+          echo 'MACHINE = "raspberrypi4"' >> conf/local.conf
+          bitbake-layers add-layer ../meta-raspberrypi
+          bitbake-layers add-layer ../meta-openembedded/meta-oe
+          bitbake-layers add-layer ../meta-openembedded/meta-networking
+
+      - name: Build Yocto image
+        run: |
+          source poky/oe-init-build-env
+          bitbake core-image-minimal
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: raspberrypi-image
+          path: |
+            build/tmp/deploy/images/raspberrypi4/core-image-minimal-raspberrypi4*.wic.bz2
