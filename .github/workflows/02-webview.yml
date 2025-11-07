@@ -1,0 +1,26 @@
+name: view
+on:
+  workflow_dispatch:
+  
+jobs:
+  browser-visit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install Puppeteer
+        run: npm install puppeteer
+      - name: Visit Website and Stay
+        run: |
+          node -e "
+          const puppeteer = require('puppeteer');
+          (async () => {
+            const browser = await puppeteer.launch({ headless: true });
+            const page = await browser.newPage();
+            await page.goto('https://youtube.com/shorts/RuNOAAgJV8g?si=v3ZL2ddAbfSSgYwK');
+            await new Promise(res => setTimeout(res, 10000)); // 10 seconds
+            await browser.close();
+          })();"
